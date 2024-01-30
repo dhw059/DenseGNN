@@ -1,0 +1,12 @@
+.wy-nav-content {
+    max-width: 90% !important;
+}
+
+.wy-side-nav-search {
+    /* GhostWhite */
+    background: #F8F8FF;
+}
+
+.wy-side-nav-search > div.version {
+  color: black;
+}
