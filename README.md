@@ -18,10 +18,6 @@ Modern deep learning-driven generative models have made it possible to design mi
 
 
 
-<img src="figs/model.png" width="1200">
-
-
-
 ## Crystal structure distinguishment improvement
 
 <img src="figs/xrd.png" width="1200">
