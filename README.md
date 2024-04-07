@@ -266,7 +266,7 @@ A set of example training can be found in [training](training). Training scripts
 You can find a [table](training/results/README.md) of common benchmark datasets in [results](training/results).
 
 <a name="citing"></a>
-# Citing
+# Citing and Acknowledgement
 
 If you want to cite this repo, please refer to our [paper](https://doi.org/10.1016/j.simpa.2021.100095):
 
