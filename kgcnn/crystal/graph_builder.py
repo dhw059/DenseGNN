@@ -9,6 +9,10 @@ from pymatgen.core.periodic_table import Element
 from pymatgen.optimization.neighbors import find_points_in_spheres
 from typing import Union, Optional, Any
 
+from pymatgen.analysis.local_env import CrystalNN, VoronoiNN
+from pymatgen.core import  Structure
+from matminer.featurizers.site.misc import CoordinationNumber
+from matminer.featurizers.site.fingerprint import CrystalNNFingerprint, OPSiteFingerprint,AGNIFingerprints
 
 def get_symmetrized_graph(structure: Union[Structure, pyxtal]) -> MultiDiGraph:
     """Builds a unit graph without any edges, but with symmetry information as node attributes.
@@ -34,48 +38,31 @@ def get_symmetrized_graph(structure: Union[Structure, pyxtal]) -> MultiDiGraph:
     graph = MultiDiGraph()
     if isinstance(structure, pyxtal):
         pyxtal_cell = structure
-    elif isinstance(structure, Structure):
-        try:
-            pyxtal_cell = pyxtal()
-            pyxtal_cell.from_seed(structure)
-        except:
-            # use trivial spacegroup (with spacegroup number == 1)
-            # if spglib isn't able to calculate symmetries
-            frac_coords = np.array([site.frac_coords for site in structure.sites])
-            frac_coords = _to_unit_cell(frac_coords)
-            for node_idx, site in enumerate(structure.sites):
-                graph.add_node(node_idx, atomic_number=site.specie.number,
-                               asymmetric_mapping=node_idx,
-                               frac_coords=frac_coords[node_idx],
-                               coords=site.coords,
-                               symmop=np.eye(4),
-                               multiplicity=1)
-            setattr(graph, 'lattice_matrix', structure.lattice.matrix)
-            setattr(graph, 'spacegroup', 1)
-            return graph
-    else:
-        raise ValueError("This method takes either a pymatgen.core.structure.Structure or a pyxtal object.")
 
-    atomic_numbers, frac_coords, asymmetric_mapping, symmops, multiplicities = [], [], [], [], []
-    for site in pyxtal_cell.atom_sites:
-        atomic_numbers += (site.multiplicity * [Element(site.specie).Z])
-        asymmetric_mapping += (site.multiplicity * [len(asymmetric_mapping)])
-        frac_coords.append(site.coords)
-        symmops += [symmop.affine_matrix for symmop in site.wp.ops]
-        multiplicities += (site.multiplicity * [site.multiplicity])
-    frac_coords = _to_unit_cell(np.vstack(frac_coords))
-    lattice = pyxtal_cell.lattice.matrix
-    coords = frac_coords @ lattice
+    AGNIFinger = []
+    # cnnfp_crystal = CrystalNNFingerprint.from_preset("ops")  # '61'
+    cnnfp_crystal = AGNIFingerprints(directions=["x", "y", "z"])  # "24"
+
+    for i in range(len(structure)):
+        try:
+            cnnfp_crystal_site = np.array(cnnfp_crystal.featurize(structure, i))
+        except:
+            # cnnfp_crystal_site =  np.zeros((61,))
+            cnnfp_crystal_site = np.zeros((24,))
+        AGNIFinger.append(cnnfp_crystal_site)
+        
+    frac_coords = structure.frac_coords
+    atomic_numbers = list(structure.atomic_numbers)
+    lattice = structure.lattice.matrix
+    coords = structure.cart_coords
+
     for node_idx in range(len(atomic_numbers)):
         graph.add_node(node_idx, atomic_number=atomic_numbers[node_idx],
-                       asymmetric_mapping=asymmetric_mapping[node_idx],
-                       frac_coords=frac_coords[node_idx],
-                       coords=coords[node_idx],
-                       symmop=symmops[node_idx],
-                       multiplicity=multiplicities[node_idx])
+                        frac_coords=frac_coords[node_idx],
+                        coords=coords[node_idx],
+                        AGNIFinger=AGNIFinger[node_idx],
+                        )
     setattr(graph, 'lattice_matrix', lattice)
-    setattr(graph, 'spacegroup', pyxtal_cell.group.number)
-
     return graph
 
 
@@ -116,6 +103,12 @@ def structure_to_empty_graph(structure: Union[Structure, pyxtal], symmetrize: bo
 def add_knn_bonds(graph: MultiDiGraph, k: int = 12, max_radius: float = 10.,
                   tolerance: Optional[float] = None, inplace: bool = False) -> MultiDiGraph:
     """Adds kNN-based edges to a unit cell graph.
+
+    The returned values are a tuple of numpy arrays
+        (center_indices, points_indices, offset_vectors, distances).
+        Atom `center_indices[i]` has neighbor atom `points_indices[i]` that is
+        translated by `offset_vectors[i]` lattice vectors, and the distance is
+        `distances[i]`.
 
     Args:
         graph (MultiDiGraph): The unit cell graph to add kNN-based edges to.
@@ -174,7 +167,6 @@ def add_knn_bonds(graph: MultiDiGraph, k: int = 12, max_radius: float = 10.,
             new_graph.add_edge(
                 index2[edge_idx], index1[edge_idx],
                 cell_translation=offset_vectors[edge_idx], distance=distances[edge_idx])
-
     return new_graph
 
 
@@ -217,7 +209,7 @@ def add_radius_bonds(graph: MultiDiGraph, radius: float = 5., inplace: bool = Fa
 
 def add_voronoi_bonds(graph: MultiDiGraph, min_ridge_area: Optional[float] = None,
                       inplace: bool = False) -> MultiDiGraph:
-    """Adds Voronoi-based edges to a unit cell graph.
+    """Adds Voronoi-based edges to a unit cell graph. control edges numbers and as the edges features
 
     Args:
         graph (MultiDiGraph): The unit cell graph to add radius-based edges to.
@@ -262,7 +254,7 @@ def add_voronoi_bonds(graph: MultiDiGraph, min_ridge_area: Optional[float] = Non
         d = np.linalg.norm(expanded_coords[tuple(edge_info[i][0])] - expanded_coords[tuple(edge_info[i][1])])
         distances.append(d)
 
-    if min_ridge_area is not None:
+    if min_ridge_area is not None: #T
         ridge_vertices = [voronoi.ridge_vertices[i] for i in
                           np.concatenate([source_in_center_cell, target_in_center_cell])]
         ridge_areas = [get_ridge_area(voronoi.vertices[idxs]) for idxs in ridge_vertices]
@@ -430,18 +422,18 @@ def add_edge_information(graph: MultiDiGraph, inplace=False,
     cell_translations = np.array(cell_translations)
     frac_offset = frac_coords2 - (frac_coords1 + cell_translations)
     offset = frac_offset @ _get_attr_from_graph(new_graph, "lattice_matrix")
-    if add_distance:
+    if add_distance:   # TRUE
         distances = np.linalg.norm(offset, axis=-1)
     else:
         distances = None
 
     # Add calculated information to edge attributes
     for i, e in enumerate(new_graph.edges(data=True)):
-        if add_frac_offset:
+        if add_frac_offset:  # False
             e[2]['frac_offset'] = frac_offset[i]
-        if add_offset:
+        if add_offset:      # True
             e[2]['offset'] = offset[i]
-        if add_distance:
+        if add_distance:        # True
             e[2]['distance'] = distances[i]
 
     return new_graph

@@ -45,6 +45,7 @@ class KNNAsymmetricUnitCell(CrystalPreprocessor):
 
     node_attributes = ['atomic_number', 'frac_coords', 'coords', 'multiplicity']
     edge_attributes = ['cell_translation', 'distance', 'symmop', 'offset']
+    # edge_attributes = ['cell_translation', 'distance', 'offset']
     graph_attributes = ['lattice_matrix', 'spacegroup']
 
     def __init__(self, k: int = 12, tolerance: Optional[float] = 1e-9, **kwargs):
@@ -119,7 +120,7 @@ class VoronoiAsymmetricUnitCell(CrystalPreprocessor):
 class RadiusUnitCell(CrystalPreprocessor):
     """Preprocessor that builds unit cell graphs with radius-based edges for crystals."""
 
-    node_attributes = ['atomic_number', 'frac_coords', 'coords']
+    node_attributes = ['atomic_number', 'frac_coords', 'coords','CrystalNNFinger']
     edge_attributes = ['cell_translation', 'distance', 'offset']
     graph_attributes = ['lattice_matrix']
 
@@ -144,7 +145,7 @@ class RadiusUnitCell(CrystalPreprocessor):
         if isinstance(structure, MultiDiGraph):
             g = structure
         else:
-            g = graph_builder.structure_to_empty_graph(structure, symmetrize=False)
+            g = graph_builder.structure_to_empty_graph(structure, symmetrize=True)
         g = graph_builder.add_radius_bonds(g, radius=self.radius, inplace=True)
         g = graph_builder.add_edge_information(g, inplace=True)
         return g
@@ -152,8 +153,7 @@ class RadiusUnitCell(CrystalPreprocessor):
 
 class KNNUnitCell(CrystalPreprocessor):
     """Preprocessor that builds unit cell graphs with kNN-based edges for crystals."""
-
-    node_attributes = ['atomic_number', 'frac_coords', 'coords']
+    node_attributes = ['atomic_number', 'frac_coords', 'coords', 'AGNIFinger']
     edge_attributes = ['cell_translation', 'distance', 'offset']
     graph_attributes = ['lattice_matrix']
 
@@ -182,7 +182,7 @@ class KNNUnitCell(CrystalPreprocessor):
         if isinstance(structure, MultiDiGraph):
             g = structure
         else:
-            g = graph_builder.structure_to_empty_graph(structure, symmetrize=False)
+            g = graph_builder.structure_to_empty_graph(structure, symmetrize=True)
         g = graph_builder.add_knn_bonds(g, k=self.k, tolerance=self.tolerance, inplace=True)
         g = graph_builder.add_edge_information(g, inplace=True)
         return g
@@ -190,8 +190,7 @@ class KNNUnitCell(CrystalPreprocessor):
 
 class VoronoiUnitCell(CrystalPreprocessor):
     """Preprocessor that builds unit cell graphs with Voronoi-based edges for crystals."""
-
-    node_attributes = ['atomic_number', 'frac_coords', 'coords']
+    node_attributes = ['atomic_number', 'frac_coords', 'coords', 'AGNIFinger']
     edge_attributes = ['cell_translation', 'distance', 'offset', 'voronoi_ridge_area']
     graph_attributes = ['lattice_matrix']
 
@@ -218,7 +217,7 @@ class VoronoiUnitCell(CrystalPreprocessor):
         if isinstance(structure, MultiDiGraph):
             g = structure
         else:
-            g = graph_builder.structure_to_empty_graph(structure, symmetrize=False)
+            g = graph_builder.structure_to_empty_graph(structure, symmetrize=True)
         g = graph_builder.add_voronoi_bonds(g, min_ridge_area=self.min_ridge_area, inplace=True)
         g = graph_builder.add_edge_information(g, inplace=True)
         return g
@@ -387,10 +386,9 @@ class RadiusNonPeriodicUnitCell(CrystalPreprocessor):
 
 class KNNNonPeriodicUnitCell(CrystalPreprocessor):
     """Preprocessor that builds non-periodic graphs with kNN-based edges for crystals."""
-
-    node_attributes = ['atomic_number', 'frac_coords', 'coords']
+    node_attributes = ['atomic_number', 'frac_coords', 'coords', 'multiplicity']
     edge_attributes = ['cell_translation', 'distance', 'offset']
-    graph_attributes = ['lattice_matrix']
+    graph_attributes = ['lattice_matrix', 'spacegroup']
 
     def __init__(self, k=12, tolerance=1e-9, **kwargs):
         """Initializes the crystal preprocessor.
