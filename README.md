@@ -271,7 +271,10 @@ You can find a [table](training/results/README.md) of common benchmark datasets 
 If you want to cite this repo, please refer to our [paper](https://doi.org/10.1016/j.simpa.2021.100095):
 
 ```
-@article{under review}
+@article{under review, Hongwei Du, Hong Wang*, School of Materials Science and Engineering, Shanghai Jiao Tong University, Shanghai 200240, China.
+2 Zhangjiang Institute for Advanced Study, Shanghai Jiao Tong University, Shanghai 201203, China.
+3 Materials Genome Initiative Center, Shanghai Jiao Tong University, Shanghai 200240, China.
+}
 
 @article{REISER2021100095,
 title = {Graph neural networks in TensorFlow-Keras with RaggedTensor representation (kgcnn)},
