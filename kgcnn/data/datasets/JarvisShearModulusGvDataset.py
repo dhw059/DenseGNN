@@ -1,7 +1,7 @@
-from kgcnn.data.datasets.MatBenchDataset2020 import MatBenchDataset2020
+from kgcnn.data.datasets.JarvisBenchDataset2021 import JarvisBenchDataset2021
 
 
-class MatProjectJdft2dDataset(MatBenchDataset2020):
+class JarvisShearModulusGvDataset(JarvisBenchDataset2021):
     """Store and process :obj:`MatProjectJdft2dDataset` from `MatBench <https://matbench.materialsproject.org/>`__
     database. Name within Matbench: 'matbench_jdft2d'.
 
@@ -17,13 +17,12 @@ class MatProjectJdft2dDataset(MatBenchDataset2020):
     """
 
     def __init__(self, reload=False, verbose: int = 10):
-        r"""Initialize 'matbench_jdft2d' dataset.
+        r"""Initialize 'shear_modulus_gv' dataset.
 
         Args:
             reload (bool): Whether to reload the data and make new dataset. Default is False.
             verbose (int): Print progress or info for processing where 60=silent. Default is 10.
         """
-        # Use default base class init()
-        super(MatProjectJdft2dDataset, self).__init__("matbench_jdft2d", reload=reload, verbose=verbose)
-        self.label_names = "exfoliation_en "
-        self.label_units = "meV/atom"
+        super(JarvisShearModulusGvDataset, self).__init__("shear_modulus_gv", reload=reload, verbose=verbose)
+        self.label_names = "shear_modulus_gv "
+        self.label_units = "Gpa"

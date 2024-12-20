@@ -31,16 +31,19 @@ class MatBenchDataset2020(CrystalDataset, DownloadDataset):
         (1) Dunn, A., Wang, Q., Ganose, A. et al. Benchmarking materials property prediction methods: the Matbench
             test set and Automatminer reference algorithm. npj Comput Mater 6, 138 (2020).
             `<https://doi.org/10.1038/s41524-020-00406-3>`_ .
-
+    
     """
+
     datasets_download_info = {
         "matbench_steels": {"dataset_name": "matbench_steels",
                             "download_file_name": 'matbench_steels.json.gz',
-                            "data_directory_name": "matbench_steels", "extract_gz": True,
+                            "data_directory_name": "matbench_steels", 
+                            "extract_gz": True,
                             "extract_file_name": 'matbench_steels.json'},
         "matbench_jdft2d": {"dataset_name": "matbench_jdft2d",
                             "download_file_name": 'matbench_jdft2d.json.gz',
-                            "data_directory_name": "matbench_jdft2d", "extract_gz": True,
+                            "data_directory_name": "matbench_jdft2d", 
+                            "extract_gz": True,
                             "extract_file_name": 'matbench_jdft2d.json'},
         "matbench_phonons": {"dataset_name": "matbench_phonons",
                              "download_file_name": 'matbench_phonons.json.gz',
@@ -74,10 +77,13 @@ class MatBenchDataset2020(CrystalDataset, DownloadDataset):
                                  "download_file_name": 'matbench_perovskites.json.gz',
                                  "data_directory_name": "matbench_perovskites", "extract_gz": True,
                                  "extract_file_name": 'matbench_perovskites.json'},
+
         "matbench_mp_gap": {"dataset_name": "matbench_mp_gap",
                             "download_file_name": 'matbench_mp_gap.json.gz',
                             "data_directory_name": "matbench_mp_gap", "extract_gz": True,
                             "extract_file_name": 'matbench_mp_gap.json'},
+
+
         "matbench_mp_is_metal": {"dataset_name": "matbench_mp_is_metal",
                                  "download_file_name": 'matbench_mp_is_metal.json.gz',
                                  "data_directory_name": "matbench_mp_is_metal", "extract_gz": True,
@@ -87,6 +93,106 @@ class MatBenchDataset2020(CrystalDataset, DownloadDataset):
                                "data_directory_name": "matbench_mp_e_form", "extract_gz": True,
                                "extract_file_name": 'matbench_mp_e_form.json'},
 
+         "mp_LFP_gap": {"dataset_name": "mp_LFP_gap",
+                            "download_file_name": 'mp_LFP_gap.json.gz',
+                            "data_directory_name": "mp_LFP_gap", "extract_gz": True,
+                            "extract_file_name": 'mp_LFP_gap.json'},
+
+        "band_gap_order_exp": {"dataset_name": "band_gap_order_exp",
+                            "download_file_name": 'band_gap_order_exp.json.gz',
+                            "data_directory_name": "band_gap_order_exp", "extract_gz": True,
+                            "extract_file_name": 'band_gap_order_exp.json'},  
+
+
+        "multifidelity_band_gap": {"dataset_name": None,
+                               "download_file_name": "multifidelity_band_gap.json",
+                               "data_directory_name": "multifidelity_band_gap", "extract_gz": False,
+                               "extract_file_name": None},       
+
+        "include_li_mp_band_gap": {"dataset_name": None,
+                               "download_file_name": "include_li_mp_band_gap.json",
+                               "data_directory_name": "include_li_mp_band_gap", "extract_gz": False,
+                               "extract_file_name": None},     
+
+
+        "sample_all_materials_data_form_processed": {"dataset_name": None,
+                               "download_file_name": "sample_all_materials_data_form_processed.json",
+                               "data_directory_name": "sample_all_materials_data_form_processed", "extract_gz": False,
+                               "extract_file_name": None},   
+
+        "ml_e_form_exp": {"dataset_name": None,
+                               "download_file_name": "ml_e_form_exp.json",
+                               "data_directory_name": "ml_e_form_exp", "extract_gz": False,
+                               "extract_file_name": None},   
+        
+        "sample_all_materials_data_ehull_processed": {"dataset_name": None,
+                               "download_file_name": "sample_all_materials_data_ehull_processed.json",
+                               "data_directory_name": "sample_all_materials_data_ehull_processed", "extract_gz": False,
+                               "extract_file_name": None},   
+        
+        "include_li_mp_eform": {"dataset_name": None,
+                               "download_file_name": "include_li_mp_eform.json",
+                               "data_directory_name": "include_li_mp_eform", "extract_gz": False,
+                               "extract_file_name": None},   
+        
+        "sample_all_materials_data_form_processed_include_li_more_than_neg2": {"dataset_name": None,
+                               "download_file_name": "sample_all_materials_data_form_processed_include_li_more_than_neg2.json",
+                               "data_directory_name": "sample_all_materials_data_form_processed_include_li_more_than_neg2", "extract_gz": False,
+                               "extract_file_name": None},   
+        
+        "li_sse_eform_mp_datasest": {"dataset_name": None,
+                               "download_file_name": "li_sse_eform_mp_datasest.json",
+                               "data_directory_name": "li_sse_eform_mp_datasest", "extract_gz": False,
+                               "extract_file_name": None},  
+        "include_li_mp_ehull": {"dataset_name": None,
+                               "download_file_name": "include_li_mp_ehull.json",
+                               "data_directory_name": "include_li_mp_ehull", "extract_gz": False,
+                               "extract_file_name": None}, 
+        
+        "li_sse_ehull_mp_datasest": {"dataset_name": None,
+                               "download_file_name": "li_sse_ehull_mp_datasest.json",
+                               "data_directory_name": "li_sse_ehull_mp_datasest", "extract_gz": False,
+                               "extract_file_name": None}, 
+        
+        "all_materials_gvrh_data_processed": {"dataset_name": None,
+                               "download_file_name": "all_materials_gvrh_data_processed.json",
+                               "data_directory_name": "all_materials_gvrh_data_processed", "extract_gz": False,
+                               "extract_file_name": None}, 
+
+        "include_li_mp_gvrh": {"dataset_name": None,
+                               "download_file_name": "include_li_mp_gvrh.json",
+                               "data_directory_name": "include_li_mp_gvrh", "extract_gz": False,
+                               "extract_file_name": None}, 
+
+        "li_sse_shear_modulus_mp_datasest": {"dataset_name": None,
+                               "download_file_name": "li_sse_shear_modulus_mp_datasest.json",
+                               "data_directory_name": "li_sse_shear_modulus_mp_datasest", "extract_gz": False,
+                               "extract_file_name": None}, 
+        
+        "all_materials_kvrh_data_processed": {"dataset_name": None,
+                               "download_file_name": "all_materials_kvrh_data_processed.json",
+                               "data_directory_name": "all_materials_kvrh_data_processed", "extract_gz": False,
+                               "extract_file_name": None}, 
+        "include_li_mp_kvrh": {"dataset_name": None,
+                               "download_file_name": "include_li_mp_kvrh.json",
+                               "data_directory_name": "include_li_mp_kvrh", "extract_gz": False,
+                               "extract_file_name": None}, 
+        "li_sse_bulk_modulus_mp_datasest": {"dataset_name": None,
+                               "download_file_name": "li_sse_bulk_modulus_mp_datasest.json",
+                               "data_directory_name": "li_sse_bulk_modulus_mp_datasest", "extract_gz": False,
+                               "extract_file_name": None}, 
+        "li_sse_gap_mp_datasest": {"dataset_name": None,
+                               "download_file_name": "li_sse_gap_mp_datasest.json",
+                               "data_directory_name": "li_sse_gap_mp_datasest", "extract_gz": False,
+                               "extract_file_name": None}, 
+
+        "sulfides_band_mp_dataset": {"dataset_name": None,
+                               "download_file_name": "sulfides_band_mp_dataset.json",
+                               "data_directory_name": "sulfides_band_mp_dataset", "extract_gz": False,
+                               "extract_file_name": None}, 
+
+
+  
     }
     datasets_prepare_data_info = {
         "matbench_steels": {"file_column_name": "composition"},
@@ -102,7 +208,37 @@ class MatBenchDataset2020(CrystalDataset, DownloadDataset):
         "matbench_mp_gap": {"file_column_name": "structure"},
         "matbench_mp_is_metal": {"file_column_name": "structure"},
         "matbench_mp_e_form": {"file_column_name": "structure"},
+
+        "mp_LFP_gap": {"file_column_name": "structure"},
+        "band_gap_order_exp": {"file_column_name": "structure"},
+        "multifidelity_band_gap": {"file_column_name": "structure"},
+
+        "include_li_mp_band_gap": {"file_column_name": "structure"},
+         "li_sse_gap_mp_datasest": {"file_column_name": "structure"},
+        "sample_all_materials_data_form_processed": {"file_column_name": "structure"},
+        "ml_e_form_exp": {"file_column_name": "structure"},
+        "sample_all_materials_data_ehull_processed": {"file_column_name": "structure"},
+        "include_li_mp_eform": {"file_column_name": "structure"},
+
+        "sample_all_materials_data_form_processed_include_li_more_than_neg2": {"file_column_name": "structure"},
+        "li_sse_eform_mp_datasest": {"file_column_name": "structure"},
+        "include_li_mp_ehull": {"file_column_name": "structure"},
+
+        "li_sse_ehull_mp_datasest": {"file_column_name": "structure"},
+        "all_materials_gvrh_data_processed": {"file_column_name": "structure"},
+
+        "include_li_mp_gvrh": {"file_column_name": "structure"},
+        "li_sse_shear_modulus_mp_datasest": {"file_column_name": "structure"},
+        "all_materials_kvrh_data_processed": {"file_column_name": "structure"},
+
+        "include_li_mp_kvrh": {"file_column_name": "structure"},
+        "li_sse_bulk_modulus_mp_datasest": {"file_column_name": "structure"},
+
+        "sulfides_band_mp_dataset": {"file_column_name": "structure"},
+
     }
+
+
     datasets_read_in_memory_info = {
         "matbench_steels": {"label_column_name": "yield strength"},
         "matbench_jdft2d": {"label_column_name": "exfoliation_en"},
@@ -117,6 +253,38 @@ class MatBenchDataset2020(CrystalDataset, DownloadDataset):
         "matbench_mp_gap": {"label_column_name": "gap pbe"},
         "matbench_mp_is_metal": {"label_column_name": "is_metal"},
         "matbench_mp_e_form": {"label_column_name": "e_form"},
+
+        "mp_LFP_gap": {"label_column_name": "gap"},
+        "band_gap_order_exp": {"label_column_name": "band_gap"},
+        "multifidelity_band_gap": {"label_column_name": "multifidelity_band_gap", "label_column_name_s": "index"},
+        "include_li_mp_band_gap": {"label_column_name": "include_li_band_gap", "label_column_name_s": "index"},
+        "li_sse_gap_mp_datasest": {"label_column_name": "li_sse_band_gap", "label_column_name_s": "index"},
+        "sample_all_materials_data_form_processed": {"label_column_name": "formation_energy_per_atom", "label_column_name_s": "index"},
+        "ml_e_form_exp": {"label_column_name": "formation_energy_per_atom", "label_column_name_s": "index"},
+        "sample_all_materials_data_ehull_processed": {"label_column_name": "energy_above_hull", "label_column_name_s": "index"},
+        "include_li_mp_eform": {"label_column_name": "formation_energy_per_atom", "label_column_name_s": "index"},
+
+        "sample_all_materials_data_form_processed_include_li_more_than_neg2": {"label_column_name": "formation_energy_per_atom", "label_column_name_s": "index"},
+
+        "li_sse_eform_mp_datasest": {"label_column_name": "formation_energy_per_atom", "label_column_name_s": "index"},
+    
+        "include_li_mp_ehull": {"label_column_name": "energy_above_hull", "label_column_name_s": "index"},
+
+        "li_sse_ehull_mp_datasest": {"label_column_name": "e_above_hull", "label_column_name_s": "index"},
+        "all_materials_gvrh_data_processed": {"label_column_name": "shear_modulus_vrh", "label_column_name_s": "index"},
+
+        "include_li_mp_gvrh": {"label_column_name": "shear_modulus_vrh", "label_column_name_s": "index"},
+
+        "li_sse_shear_modulus_mp_datasest": {"label_column_name": "shear_modulus_vrh", "label_column_name_s": "index"},
+        "all_materials_kvrh_data_processed": {"label_column_name": "bulk_modulus_vrh", "label_column_name_s": "index"},
+
+        "include_li_mp_kvrh": {"label_column_name": "bulk_modulus_vrh", "label_column_name_s": "index"},
+
+        "li_sse_bulk_modulus_mp_datasest": {"label_column_name": "bulk_modulus_vrh", "label_column_name_s": "index"},
+
+        "sulfides_band_mp_dataset": {"label_column_name": "band gap", "label_column_name_s": "index"},
+
+    
     }
 
     def __init__(self, dataset_name: str, reload: bool = False, verbose: int = 10):
@@ -144,35 +312,37 @@ class MatBenchDataset2020(CrystalDataset, DownloadDataset):
 
         DownloadDataset.__init__(self, **self.download_info, reload=reload, verbose=verbose)
 
-        self.data_directory = os.path.join(self.data_main_dir, self.data_directory_name)
-        file_name_download = self.download_file_name if self.extract_file_name is None else self.extract_file_name
-        self.file_name = "%s.csv" % os.path.splitext(file_name_download)[0]
-        self.dataset_name = dataset_name
-        self.require_prepare_data = True
+        self.data_directory = os.path.join(self.data_main_dir, self.data_directory_name) # "./matbench_dielectric"
+        file_name_download = self.download_file_name if self.extract_file_name is None else self.extract_file_name # 'matbench_steels.json'
+        self.file_name = "%s.csv" % os.path.splitext(file_name_download)[0]  # 'matbench_dielectric.json'  matbench_dielectric.csv
+        self.dataset_name = dataset_name  # "matbench_dielectric"
+        self.require_prepare_data = True 
         self.fits_in_memory = True
 
         if self.require_prepare_data:
-            self.prepare_data(overwrite=reload, **self.datasets_prepare_data_info[self.dataset_name])
+            self.prepare_data(overwrite=reload, **self.datasets_prepare_data_info[self.dataset_name]) #{"file_column_name": "structure"}
         if self.fits_in_memory:
-            self.read_in_memory(**self.datasets_read_in_memory_info[self.dataset_name])
+            self.read_in_memory(**self.datasets_read_in_memory_info[self.dataset_name]) # {"label_column_name": "n"}
+            # Read structures from pymatgen json serialization and convert them into graph information
+
 
     def prepare_data(self, file_column_name: str = None, overwrite: bool = False):
 
-        file_name_download = self.download_file_name if self.extract_file_name is None else self.extract_file_name
+        file_name_download = self.download_file_name if self.extract_file_name is None else self.extract_file_name  # 'matbench_dielectric.json'
         # file_name_base = os.path.splitext(self.file_name)[0]
 
-        if all([os.path.exists(self.pymatgen_json_file_path), os.path.exists(self.file_path), not overwrite]):
+        if all([os.path.exists(self.pymatgen_json_file_path), os.path.exists(self.file_path), not overwrite]): #F
             self.info("Found '%s' of structures." % self.pymatgen_json_file_path)
             return self
 
         self.info("Load dataset '%s' to memory..." % self.dataset_name)
-        data = load_json_file(os.path.join(self.data_directory, file_name_download))
+        data = load_json_file(os.path.join(self.data_directory, file_name_download)) 
 
         self.info("Process database with %s and columns %s" % (data.keys(), data["columns"]))
-        data_columns = data["columns"]
+        data_columns = data["columns"] #['structure','en_labels']
         index_structure = 0
         for i, col in enumerate(data_columns):
-            if col == file_column_name:
+            if col == file_column_name:  # ’structure‘
                 index_structure = i
                 break
         py_mat_list = [x[index_structure] for x in data["data"]]

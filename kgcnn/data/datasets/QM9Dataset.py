@@ -112,7 +112,7 @@ class QM9Dataset(QMDataset, DownloadDataset):
 
         if self.fits_in_memory:
             self.read_in_memory(
-                label_column_name=["%s [%s]" % (a, b) for a, b in zip(self.label_names, self.label_units)])
+                label_column_name=["%s [%s]" % (a, b) for a, b in zip(self.label_names, self.label_units)] )
 
     def prepare_data(self, overwrite: bool = False, file_column_name: str = None, make_sdf: bool = True):
         """Process data by loading all single xyz-files and store all pickled information to file.

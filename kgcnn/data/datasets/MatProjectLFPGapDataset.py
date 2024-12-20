@@ -1,8 +1,8 @@
 from kgcnn.data.datasets.MatBenchDataset2020 import MatBenchDataset2020
 
 
-class MatProjectGapDataset(MatBenchDataset2020):
-    r"""Store and process :obj:`MatProjectGapDataset` from `MatBench <https://matbench.materialsproject.org/>`__
+class MatProjectLFPGapDataset(MatBenchDataset2020):
+    r"""Store and process :obj:`MatProjectLFPGapDataset` from `MatBench <https://matbench.materialsproject.org/>`__
     database.  Name within Matbench: 'matbench_mp_gap'.
 
     Matbench test dataset for predicting DFT PBE band gap from structure.
@@ -18,13 +18,13 @@ class MatProjectGapDataset(MatBenchDataset2020):
     """
 
     def __init__(self, reload=False, verbose: int = 10):
-        r"""Initialize 'matbench_mp_e_form' dataset.
+        r"""Initialize 'mp_LFP_gap' dataset.
 
         Args:
             reload (bool): Whether to reload the data and make new dataset. Default is False.
             verbose (int): Print progress or info for processing where 60=silent. Default is 10.
         """
         # Use default base class init()
-        super(MatProjectGapDataset, self).__init__("matbench_mp_gap", reload=reload, verbose=verbose)
-        self.label_names = "Band gap"
+        super(MatProjectLFPGapDataset, self).__init__("mp_LFP_gap", reload=reload, verbose=verbose)
+        self.label_names = "gap"
         self.label_units = "eV"
