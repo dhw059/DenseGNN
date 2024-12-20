@@ -13,7 +13,7 @@ Modern deep learning-driven generative models have made it possible to design mi
 
 ## Model comparison and analysis
 
-<img src="figs/scheme.png" width="1200">
+<img src="figs/matbench.png" width="1200">
 
 
 
