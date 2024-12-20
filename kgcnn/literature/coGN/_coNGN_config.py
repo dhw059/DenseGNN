@@ -98,10 +98,11 @@ output_block_cfg = {'edge_mlp': None,
                     'update_edges_input': [True, True, True, False],
                     'update_nodes_input': [True, False, False],
                     'update_global_input': [False, True, False],
-                    'multiplicity_readout': True}
+                    'multiplicity_readout': False} # raw is True
 
 
 model_default_nested = {
+    # "name": "coNGN",
     "inputs": {
         "offset": {"shape": (None, 3), "name": "offset", "dtype": "float32", "ragged": True},
         "cell_translation": None,

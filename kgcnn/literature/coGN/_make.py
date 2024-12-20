@@ -15,11 +15,13 @@ from kgcnn.model.force import EnergyForceModel
 from kgcnn.model.utils import update_model_kwargs
 from tensorflow.keras.layers import GRUCell, LSTMCell
 from ._coGN_config import model_default
+# from ._coNGN_config import model_default_nested
 from ._preprocessing_layers import EdgeDisplacementVectorDecoder
 
 ks = tf.keras
 
 
+# @update_model_kwargs(model_default_nested)
 @update_model_kwargs(model_default)
 def make_model(inputs=None,
                name=None,
@@ -75,6 +77,13 @@ def make_model(inputs=None,
     else:
         raise ValueError('The model needs either the "offset"\
                          or "coords" or "cell_translation", "frac_coords" and "lattice_matrix" as input.')
+    
+    # if in_inputs('AGNIFinger'):  
+    #     inp_AGNIFinger= ks.Input(**inputs['AGNIFinger'])  
+    #     node_inputs.append(inp_AGNIFinger)
+    #     node_input = {'features': atomic_number, 'AGNIFinger': inp_AGNIFinger} 
+    # else:
+    #     node_input = {'features': atomic_number}
 
     if in_inputs('voronoi_ridge_area'):
         inp_voronoi_ridge_area = ks.Input(**inputs['voronoi_ridge_area'])
@@ -96,9 +105,11 @@ def make_model(inputs=None,
     euclidean_norm = EuclideanNorm()
     distance = euclidean_norm(offset) # edges,1
     crystal_input_block = GraphNetworkConfigurator.get_input_block(**input_block_cfg)
+
     sequential_gn = SequentialGraphNetwork(
         [GraphNetworkConfigurator.get_gn_block(**cfg) for cfg in processing_blocks_cfg]
     )
+
     output_block = GraphNetworkConfigurator.get_gn_block(**output_block_cfg)
 
     if in_inputs('voronoi_ridge_area'):
@@ -120,8 +131,11 @@ def make_model(inputs=None,
                                                               node_input,
                                                               None,
                                                               edge_indices]) 
+    
 
     x = sequential_gn([edge_features, node_features, global_input, edge_indices])
+
+
     _, _, out, _ = output_block(x) # graph 
     out = output_block.get_features(out)
 

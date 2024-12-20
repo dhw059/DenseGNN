@@ -135,19 +135,17 @@ class AtomEmbedding(GraphBaseLayer):
 
     def call(self, inputs):
 
-        atomic_numbers = self.get_features(inputs)
-        if 'AGNIFinger' in inputs:
-            AGNIFinger = self.get_attribute(inputs, 'AGNIFinger')
-        else:
-            AGNIFinger = None
-
-        idxs = atomic_numbers - 1  # Shifted by one (zero-indexed)
         feature_list = []
+        # atomic_numbers = self.get_features(inputs)
+        # if 'AGNIFinger' in inputs:
+        #     AGNIFinger = self.get_attribute(inputs, 'AGNIFinger')
+        #     feature_list.append(AGNIFinger)
+            
+        atomic_numbers = inputs
+        idxs = atomic_numbers - 1  # Shifted by one (zero-indexed)
+        
         atomic_number_embedding = self.atomic_number_embedding_layer(idxs)
         feature_list.append(atomic_number_embedding)
-
-        if AGNIFinger is not None:
-            feature_list.append(AGNIFinger)
 
         if self.atomic_mass is not None:
             atomic_mass = tf.expand_dims(tf.gather(self.atomic_mass, idxs), -1)

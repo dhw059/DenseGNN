@@ -13,8 +13,9 @@ input_block_cfg = {'node_size': units,
                    'edge_embedding_args': {'bins_distance': 32,
                                            'max_distance': 8.0,
                                            'distance_log_base': 1.0,
-                                           'bins_voronoi_area': None,
-                                           'max_voronoi_area': None}}
+                                           'bins_voronoi_area': 25,
+                                           'max_voronoi_area': 32}}
+
 
 processing_block_cfg = {'edge_mlp': {'units': [units] * 5,
                                      'activation': ['swish'] * 5},
@@ -85,7 +86,7 @@ crystal_asymmetric_unit_graphs = {
         "atomic_number": {"shape": (None,), "name": "atomic_number", "dtype": "int32", "ragged": True},
         "frac_coords": None,
         "coords": None,
-        "multiplicity": {"shape": (None, ), "name": "multiplicity", "dtype": "int32", "ragged": True},
+        # "multiplicity": {"shape": (None, ), "name": "multiplicity", "dtype": "int32", "ragged": True},
         "lattice_matrix": None,
         "edge_indices": {"shape": (None, 2), "name": "edge_indices", "dtype": "int32", "ragged": True},
         "line_graph_edge_indices": None,
@@ -94,6 +95,9 @@ crystal_asymmetric_unit_graphs = {
     "processing_blocks_cfg": [deepcopy(processing_block_cfg) for _ in range(depth)],
     "output_block_cfg": output_block_cfg,
 }
+
+
+
 
 crystal_unit_graphs = {
     "name": "coGN",

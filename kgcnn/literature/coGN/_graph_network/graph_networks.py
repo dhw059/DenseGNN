@@ -84,6 +84,7 @@ class GraphNetwork(GraphNetworkBase):
         if self.aggregate_edges_local_ in self.attention_strings:
             assert edge_attention_mlp_local is not None
             self.edge_attention_mlp_local = edge_attention_mlp_local
+            
         if self.aggregate_edges_global_ in self.attention_strings:
             assert edge_attention_mlp_global is not None
             self.edge_attention_mlp_local = edge_attention_mlp_global
@@ -353,8 +354,8 @@ class CrystalInputBlock(GraphNetworkBase):
         return edges_new
 
     def update_nodes(self, aggregated_edge_features, nodes, global_features, **kwargs):
-        # node_features_new = self.atom_embedding(self.get_features(nodes))
-        node_features_new = self.atom_embedding(nodes)
+        node_features_new = self.atom_embedding(self.get_features(nodes))
+        # node_features_new = self.atom_embedding(nodes)
         if self.atom_mlp:
             node_features_new = self.atom_mlp(node_features_new)
         nodes_new = self.update_features(nodes, node_features_new)
