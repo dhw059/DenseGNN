@@ -16,7 +16,7 @@ Modern deep learning-driven generative models have made it possible to design mi
 <img src="figs/matbench.png" width="1200">
 
 ## Model framework
-<img src="figs/Figure S1-.png" width="1200">
+<img src="figs/FigureS.png" width="1200">
 
 ## Crystal structure distinguishment improvement
 
