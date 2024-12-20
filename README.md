@@ -158,7 +158,7 @@ original implementations (with proper licencing).
 * **[HDNNP4th](kgcnn/literature/HDNNP4th)**: [A fourth-generation high-dimensional neural network potential with accurate electrostatics including non-local charge transfer](https://www.nature.com/articles/s41467-020-20427-2) by Ko et al. (2021)
 * **[DGIN](kgcnn/literature/DGIN)**: [Improved Lipophilicity and Aqueous Solubility Prediction with Composite Graph Neural Networks ](https://pubmed.ncbi.nlm.nih.gov/34684766/) by Wieder et al. (2021)
 * **[MoGAT](kgcnn/literature/MoGAT)**: [Multi-order graph attention network for water solubility prediction and interpretation](https://www.nature.com/articles/s41598-022-25701-5) by Lee et al. (2023)
-* **[DenseGNN](kgcnn/literature/DenseGNN)** [DenseGNN: universal and scalable deeper graph neural networks for high-performance property prediction in crystals and molecules (https://www.nature.com/articles/s41524-024-01444-x)]([https://arxiv.org/abs/2002.03155](https://doi.org/10.1038/s41524-024-01444-x)) by Hongwei Du. (2024)
+* **[DenseGNN](kgcnn/literature/DenseGNN)** [DenseGNN: universal and scalable deeper graph neural networks for high-performance property prediction in crystals and molecules](https://www.nature.com/articles/s41524-024-01444-x) by Hongwei Du. (2024)
 </details>
 
 
